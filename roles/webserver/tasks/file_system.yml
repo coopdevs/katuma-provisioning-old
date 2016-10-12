@@ -1,0 +1,39 @@
+---
+- name: Create application directory
+  file: path=/opt/app state=directory group=katuma owner=katuma mode=2775
+
+- name: Create API application directory
+  file: path=/opt/app/katuma state=directory group=katuma owner=katuma mode=2775
+
+- name: Create API application directory
+  file: path=/opt/app/katuma/releases state=directory group=katuma owner=katuma mode=2775
+
+- name: Create API application directory
+  file: path=/opt/app/katuma/shared state=directory group=katuma owner=katuma mode=2775
+
+- name: Create API application directory
+  file: path=/opt/app/katuma/shared/config state=directory group=katuma owner=katuma mode=2775
+
+- name: Write API shared database.yml
+  template: src=database.yml dest=/opt/app/katuma/shared/config/database.yml group=katuma owner=katuma mode=755
+
+- name: Write API shared secrets.yml
+  template: src=secrets.yml dest=/opt/app/katuma/shared/config/secrets.yml group=katuma owner=katuma mode=755
+
+- name: Create API application LOG directory
+  file: path=/opt/app/katuma/shared/log state=directory group=katuma owner=katuma mode=2775
+
+- name: Create directory for unicorn logs
+  file: path=/var/log/unicorn state=directory group=katuma owner=katuma mode=2775
+
+- name: Create Express.js application directory
+  file: path=/opt/app/katuma-web state=directory group=katuma owner=katuma mode=2775
+
+- name: Create Express.js application directory
+  file: path=/opt/app/katuma-web/releases state=directory group=katuma owner=katuma mode=2775
+
+- name: Create Express.js application directory
+  file: path=/opt/app/katuma-web/shared state=directory group=katuma owner=katuma mode=2775
+
+- name: Create Express.js application LOG directory
+  file: path=/opt/app/katuma-web/shared/log state=directory group=katuma owner=katuma mode=2775

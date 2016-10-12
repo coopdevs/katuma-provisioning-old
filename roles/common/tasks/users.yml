@@ -1,0 +1,12 @@
+---
+- name: Create `katuma` user in `katuma` group
+  user: name=katuma groups=katuma group=katuma shell=/bin/bash
+
+- name: Write bash_profile for `katuma` user
+  template: src=bash_profile dest=/home/katuma/.bash_profile group=katuma mode=0644
+
+- name: Add `ubuntu` user to `katuma` group
+  user: name=ubuntu groups=katuma group=ubuntu shell=/bin/bash append=yes
+
+- name: Write bash_profile for `ubuntu` user
+  template: src=bash_profile dest=/home/ubuntu/.bash_profile group=katuma mode=0644

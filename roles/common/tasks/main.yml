@@ -1,0 +1,8 @@
+---
+- include: groups.yml
+- include: users.yml
+- include: ssh_keys.yml
+- include: install_packages.yml
+- include: ruby.yml
+- include: install_gems.yml
+- include: secrets.yml

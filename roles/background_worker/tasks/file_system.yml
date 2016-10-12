@@ -1,0 +1,21 @@
+---
+- name: Create application directory
+  file: path=/opt/app state=directory group=katuma owner=katuma mode=2775
+
+- name: Create API application directory
+  file: path=/opt/app/katuma state=directory group=katuma owner=katuma mode=2775
+
+- name: Create API application directory
+  file: path=/opt/app/katuma/releases state=directory group=katuma owner=katuma mode=2775
+
+- name: Create API application directory
+  file: path=/opt/app/katuma/shared state=directory group=katuma owner=katuma mode=2775
+
+- name: Create API application directory
+  file: path=/opt/app/katuma/shared/config state=directory group=katuma owner=katuma mode=2775
+
+- name: Create API application LOG directory
+  file: path=/opt/app/katuma/shared/log state=directory group=katuma owner=katuma mode=2775
+
+- name: Create directory for sidekiq logs
+  file: path=/var/log/sidekiq state=directory group=katuma owner=katuma mode=2775

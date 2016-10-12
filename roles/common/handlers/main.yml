@@ -1,0 +1,4 @@
+---
+- name: Update resolvconf
+  sudo: yes
+  command: resolvconf -u

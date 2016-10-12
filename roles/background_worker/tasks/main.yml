@@ -1,0 +1,8 @@
+---
+- include: file_system.yml
+
+- name: Write sidekiq init.d script
+  template: src=sidekiq_katuma dest=/etc/init.d/sidekiq_katuma mode=755
+
+- name: Enable sidekiq init.d script to run on startup
+  service: name=sidekiq_katuma enabled=yes

@@ -1,0 +1,21 @@
+---
+- hosts: katuma-dev
+  remote_user: ubuntu
+  sudo: yes
+
+  roles:
+    - common
+    - db_server
+    - vendor/DavidWittman.redis
+    - vendor/geerlingguy.ansible-role-nodejs
+
+  vars_files:
+    - secrets/development.yml
+  vars:
+    rails_environment: development
+    database_name: katuma_development
+    database_user: katuma
+    development_host: 10.0.3.133
+    ansible_python_interpreter: /usr/bin/python2.7
+    postgresql_version: '9.5'
+    nodejs_version: '4.x'

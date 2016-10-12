@@ -1,0 +1,27 @@
+---
+- include: file_system.yml
+- include: install_packages.yml
+
+- name: Write unicorn init.d script
+  template: src=unicorn_katuma dest=/etc/init.d/unicorn_katuma mode=755
+
+- name: Enable unicorn init.d script to run on startup
+  service: name=unicorn_katuma enabled=yes
+
+- name: Write express init.d script
+  template: src=express_katuma dest=/etc/init.d/express_katuma mode=755
+
+- name: Enable express init.d script to run on startup
+  service: name=express_katuma enabled=yes
+
+- name: Write nginx.conf
+  template: src=nginx.conf dest=/etc/nginx/nginx.conf
+
+- name: Remove default nginx site
+  file: path=/etc/nginx/sites-enabled/default state=absent
+
+- name: Write nginx-katuma.conf
+  template: src=nginx-katuma.conf dest=/etc/nginx/sites-enabled/nginx-katuma.conf
+
+- name: Remove default nginx HTML
+  action: file path=/var/www/html/index.nginx-debian.html state=absent

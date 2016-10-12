@@ -1,0 +1,17 @@
+---
+- name: Install PostgreSQL packages
+  apt:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+  with_items:
+    - "postgresql-{{ postgresql_version }}"
+    - 'postgresql-contrib-{{ postgresql_version }}'
+    - 'libpq-dev'
+    - 'python-psycopg2'
+
+- name: Write PostgreSQL configuration
+  template: src=pg_hba.conf dest="/etc/postgresql/{{ postgresql_version }}/main/pg_hba.conf" mode=0640
+  become: yes
+  become_user: postgres
+  notify: reload postgresql

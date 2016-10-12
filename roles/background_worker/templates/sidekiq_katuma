@@ -1,0 +1,78 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          sidekiq
+# Required-Start:    $all
+# Required-Stop:     $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts the sidekiq background worker
+# Description:       starts sidekiq using start-stop-daemon
+### END INIT INFO
+
+set -e
+
+USAGE="Usage: $0 <start|stop|restart|upgrade|rotate|force-stop>"
+
+# app settings
+USER="katuma"
+GROUP="katuma"
+APP_NAME="katuma"
+APP_ROOT="/opt/app/$APP_NAME/current"
+ENV="production"
+
+# environment settings
+. /etc/default/$APP_NAME
+
+LOG_DIR="/var/log/sidekiq"
+LOG_FILE="$LOG_DIR/$ENV.log"
+RUNTIME_DIR="/var/run/sidekiq"
+PID="$RUNTIME_DIR/sidekiq.pid"
+OLD_PID="$PID.oldbin"
+CMD="cd $APP_ROOT && bundle exec sidekiq --logfile $LOG_FILE --pidfile $PID --environment $ENV --daemon"
+
+# make sure directories exist
+cd $APP_ROOT || exit 1
+cd $LOG_DIR || exit 1
+# create runtime directory
+mkdir --parents --mode 2775 $RUNTIME_DIR
+chown $USER:$GROUP $RUNTIME_DIR
+
+sig () {
+  test -s "$PID" && kill -$1 `cat $PID`
+}
+
+oldsig () {
+  test -s $OLD_PID && kill -$1 `cat $OLD_PID`
+}
+
+case $1 in
+  start)
+    sig 0 && echo >&2 "Already running" && exit 0
+    echo "Starting Sidekiq background worker"
+    sudo -E -u $USER sh -c "$CMD"
+    ;;
+  stop)
+    echo "Stopping Sidekiq background worker"
+    sig QUIT && exit 0
+    echo >&2 "Not running"
+    ;;
+  force-stop)
+    echo "Force stopping Sidekiq background worker"
+    sig TERM && exit 0
+    echo >&2 "Not running"
+    ;;
+  restart|reload|upgrade)
+    sig QUIT && echo "Restarting Sidekiq background worker" && sleep 2 \
+      && sudo -E -u $USER sh -c "$CMD" && echo "Restarted Sidekiq background worker" && exit 0
+    echo >&2 "Couldn't restart"
+    ;;
+  rotate)
+    sig USR1 && echo rotated logs OK && exit 0
+    echo >&2 "Couldn't rotate logs" && exit 1
+    ;;
+  *)
+    echo >&2 $USAGE
+    exit 1
+    ;;
+esac

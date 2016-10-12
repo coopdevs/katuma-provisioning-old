@@ -1,0 +1,11 @@
+---
+- name: Add nginx ppa
+  apt_repository: repo='ppa:nginx/stable' state=present update_cache=yes
+
+- name: Install nginx package
+  apt:
+    name: 'nginx'
+    state: present
+
+- name: Add `www-data` user to `katuma` group
+  user: name=www-data groups=katuma group=www-data shell=/bin/bash append=yes

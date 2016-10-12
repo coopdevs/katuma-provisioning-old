@@ -1,0 +1,3 @@
+---
+- name: Create `katuma` group
+  group: name=katuma state=present

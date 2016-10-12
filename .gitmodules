@@ -1,0 +1,6 @@
+[submodule "vendor/geerlingguy.ansible-role-nodejs"]
+	path = vendor/geerlingguy.ansible-role-nodejs
+	url = git@github.com:geerlingguy/ansible-role-nodejs
+[submodule "vendor/DavidWittman.redis"]
+	path = vendor/DavidWittman.redis
+	url = git@github.com:DavidWittman/ansible-redis
