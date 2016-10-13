@@ -1,7 +1,6 @@
 ---
 - hosts: katuma-dev
-  remote_user: ubuntu
-  sudo: yes
+  become: yes
 
   roles:
     - common
