@@ -13,3 +13,13 @@
   apt:
     name: 'git'
     state: present
+
+- name: Install curl
+  apt:
+    name: 'curl'
+    state: present
+
+- name: Install wget
+  apt:
+    name: 'wget'
+    state: present
