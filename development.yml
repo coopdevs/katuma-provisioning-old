@@ -2,6 +2,12 @@
 - hosts: katuma-dev
   remote_user: ubuntu
   sudo: yes
+  # TODO: Doc in wiki. A manos entrando a la maquina. No hay mas. Inline script con vagrant
+  # pre_tasks:
+    # - name: apt-get update 
+      # raw: apt-get update -qq 
+    # - name: Install python 2.7 
+      # raw: apt-get install -qq python2.7  # Missing sudo? doesn't it run with sudo?
 
   roles:
     - common
