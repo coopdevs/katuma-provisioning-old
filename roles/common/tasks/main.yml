@@ -5,4 +5,5 @@
 - include: install_packages.yml
 - include: ruby.yml
 - include: install_gems.yml
+- include: nodejs.yml
 - include: secrets.yml

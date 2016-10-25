@@ -7,7 +7,6 @@
     - common
     - db_server
     - vendor/DavidWittman.redis
-    - vendor/geerlingguy.ansible-role-nodejs
 
   vars_files:
     - secrets/development.yml
