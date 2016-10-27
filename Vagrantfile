@@ -7,7 +7,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.forward_agent = true
 
   config.vm.box = 'ubuntu/xenial64'
-  config.vm.network 'forwarded_port', guest: 3000, host: 3000
+  # node.js
+  config.vm.network 'forwarded_port', guest: 8000, host: 8000
+  # webpack dev server for css and js
+  config.vm.network 'forwarded_port', guest: 3001, host: 3001
 
   # Not setting hostname for now since Vagrant will restart container interface
   # enabling DHCP again
