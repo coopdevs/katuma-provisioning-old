@@ -19,6 +19,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   config.vm.host_name = 'katuma'
 
+  # Link to your host machine
+  config.vm.synced_folder "../katuma", "/home/ubuntu/katuma"
+  config.vm.synced_folder "../katuma-web", "/home/ubuntu/katuma-web"
+
+  # Sync when a file change
+  config.vm.synced_folder "../katuma-web", "/home/ubuntu/katuma-web",
+                          type: "rsync",
+                          rsync__exclude: ".git/",
+                          rsync__args: ["--verbose", "--rsync-path='sudo rsync'", "--archive", "--delete", "-z"]
+
   config.vm.provider :virtualbox do |vb|
     vb.memory = '2048'
   end
