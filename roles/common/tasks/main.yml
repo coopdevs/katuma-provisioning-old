@@ -8,3 +8,4 @@
 - include: nodejs.yml
 - include: secrets.yml
 - include: tmux.yml
+- include: motd.yml
