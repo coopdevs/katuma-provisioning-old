@@ -1,12 +1,36 @@
 ---
-- name: Add BrightBox ruby ppa
-  apt_repository: repo=ppa:brightbox/ruby-ng state=present
-
-- name: Install BrightBox ruby 2.1 package
-  apt:
-    name: "{{item}}"
-    state: present
+- name: Install ruby dependencies
+  apt: pkg={{ item }} state=latest
   with_items:
-    - 'software-properties-common'
-    - 'ruby2.1'
-    - 'ruby2.1-dev'
+    - libssl-dev
+    - libreadline-dev
+    - zlib1g-dev
+
+- name: Install rbenv
+  become_user: ubuntu
+  git: repo=https://github.com/rbenv/rbenv.git
+       dest={{ rbenv_path }}
+       version={{ rbenv_version }}
+       force=yes
+
+- name: Install ruby-build
+  become_user: ubuntu
+  git: repo=https://github.com/rbenv/ruby-build.git
+       dest={{ ruby_build_path }}
+       version={{ ruby_build_version }}
+       force=yes
+
+- name: Install Ruby
+  become_user: ubuntu
+  shell: "{{ rbenv_path }}/bin/rbenv install {{ ruby_version }} -v"
+  args:
+    creates: "{{ rbenv_path }}/versions/{{ ruby_version }}"
+
+- name: Set global Ruby version
+  become_user: ubuntu
+  shell: "{{ rbenv_path }}/bin/rbenv global {{ ruby_version }}"
+
+- name: Install bundler
+  shell: "{{ rbenv_path }}/shims/gem install bundler -v {{ bundler_version }}"
+  args:
+    warn: no

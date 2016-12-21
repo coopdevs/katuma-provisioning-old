@@ -1,7 +1,6 @@
 ---
 - hosts: katuma-dev
-  remote_user: ubuntu
-  sudo: yes
+  become: yes
 
   roles:
     - common
@@ -18,3 +17,11 @@
     ansible_python_interpreter: /usr/bin/python2.7
     postgresql_version: '9.5'
     nodejs_version: '4.x'
+    ruby_version: '2.2.5'
+    ruby_base_version: '2.2.0'
+    bundler_version: '1.13.3'
+    bundle_gem_path: "{{ app_path }}/vendor/bundle/ruby/{{ ruby_base_version }}"
+    rbenv_version: 'v1.0.0'
+    ruby_build_version: 'v20160426'
+    rbenv_path: '/home/ubuntu/.rbenv'
+    ruby_build_path: "{{ rbenv_path }}/plugins/ruby-build"
