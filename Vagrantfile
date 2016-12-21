@@ -9,10 +9,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = 'ubuntu/xenial64'
   config.vm.box_version = '20161026.0.0'
   config.vm.box_check_update = false
+
   # node.js
   config.vm.network 'forwarded_port', guest: 8000, host: 8000
   # webpack dev server for css and js
   config.vm.network 'forwarded_port', guest: 3001, host: 3001
+  # rails
+  config.vm.network 'forwarded_port', guest: 3000, host: 3000
+
 
   # Not setting hostname for now since Vagrant will restart container interface
   # enabling DHCP again
