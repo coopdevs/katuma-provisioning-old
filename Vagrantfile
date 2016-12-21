@@ -39,4 +39,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       "katuma-dev" => ["default"]
     }
   end
+
+  config.vm.provision "file", source: "setup_repos.sh", destination: "~/setup_repos.sh"
 end
