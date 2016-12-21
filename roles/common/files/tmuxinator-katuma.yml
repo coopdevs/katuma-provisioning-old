@@ -1,0 +1,14 @@
+# ~/.tmuxinator/katuma.yml
+
+name: katuma
+root: ~
+
+windows:
+  - console:
+    -
+  - rails:
+    - cd ~/katuma
+    - bundle exec rails server
+  - node:
+    - cd ~/katuma-web
+    - NODE_HOST=local.katuma.org yarn run dev

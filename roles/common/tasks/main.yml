@@ -7,3 +7,5 @@
 - include: install_gems.yml
 - include: nodejs.yml
 - include: secrets.yml
+- include: tmux.yml
+- include: motd.yml
